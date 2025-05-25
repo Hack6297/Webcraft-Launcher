@@ -2,6 +2,18 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 import socketio
 import sys
+from urllib.parse import urlparse, parse_qs
+
+nickname = "Player"
+if len(sys.argv) > 1:
+    url = sys.argv[1]
+    parsed_url = urlparse(url)
+    nickname_param = parse_qs(parsed_url.query).get('nickname')
+    if nickname_param:
+        nickname = nickname_param[0]
+
+print("Nickname:", nickname)
+# Use `nickname` in your code now
 
 # ← никнейм из аргументов
 nickname = sys.argv[1] if len(sys.argv) > 1 else "Player"
