@@ -15,7 +15,7 @@ Sky()
 nickname_label = Text(text=nickname, position=(0, 0.4), origin=(0, 0), scale=2, color=color.azure, parent=player)
 
 sio = socketio.Client()
-sio.connect('https://webcraft-gg.onrender.com/ws', transports=['websocket'], socketio_path='/socket.io')
+sio.connect('https://webcraft-gg.onrender.com', transports=['websocket'])
 
 voxels, others, other_names = {}, {}, {}
 colors = [color.white, color.red, color.green, color.blue, color.black, color.yellow, color.gray, color.brown, color.violet]
