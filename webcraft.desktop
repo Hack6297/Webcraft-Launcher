@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=WebCraft
+Exec=python3 ~/Downloads/webcraft_client.py --nickname=%u
+Type=Application
+NoDisplay=true
+MimeType=x-scheme-handler/webcraft;
