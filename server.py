@@ -1,29 +1,26 @@
 import os
 import django
 
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from socketio import AsyncServer
+from socketio.asgi import ASGIApp
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
 
-from socketio import AsyncServer
-from socketio.asgi import ASGIApp
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-
-# Socket.IO сервер
 sio = AsyncServer(async_mode='asgi', cors_allowed_origins='*')
-
-# FastAPI обёртка
 fastapi_app = FastAPI()
 
-# Главная страница (для проверки)
+# 👉 Добавим отдачу HTML-файла с кнопкой запуска
 @fastapi_app.get("/", response_class=HTMLResponse)
 async def root():
-    return "<h1>🌐 WebCraft Server is Live!</h1>"
+    with open("Webcraft.html", "r", encoding="utf-8") as f:
+        return f.read()
 
-# Оборачиваем socket.io в ASGI
 app = ASGIApp(sio, other_asgi_app=fastapi_app)
 
-# Игроки
+# 👇 Всё остальное — как раньше
 players = {}
 
 @sio.event
