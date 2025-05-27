@@ -1,10 +1,15 @@
 import os
 import django
 
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+# server.py
 from socketio import AsyncServer
 from socketio.asgi import ASGIApp
+from fastapi import FastAPI
+
+sio = AsyncServer(async_mode='asgi', cors_allowed_origins='*')
+app = FastAPI()
+app.mount("/", ASGIApp(sio))
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
